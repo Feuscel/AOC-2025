@@ -7,36 +7,30 @@ with open("entrer.txt") as f:
       start_range = range_[0]
       end_range = range_[1]
       for id in range(int(start_range),int(end_range)+1,1):
-        even_len_id = (len(str(id)) % 2) == 0
-        left_side_id = (str(id)[0:len(str(id)) // 2])
-        right_side_id = (str(id)[len(str(id)) // 2:])
-        if even_len_id and left_side_id == right_side_id :
-          sum += id
-        elif even_len_id and not left_side_id == right_side_id :
-          if len(str(id)) % 5 == 0:
-            lenght = len(str(id)) // 5
-            left_side_id = (str(id)[0:lenght])
-            midle_side_id = (str(id)[lenght:lenght+lenght])
-            right_side_id = (str(id)[-(lenght) :])
-          else:
-            lenght = len(str(id)) // 2
-            left_side_id = (str(id)[0:lenght-1])
-            midle_side_id = (str(id)[lenght-1:(lenght-1)+(lenght-1)])
-            right_side_id = (str(id)[-(lenght-1):])
-          if left_side_id == midle_side_id and left_side_id == right_side_id and midle_side_id == right_side_id :
-            sum += id
-        elif not even_len_id :
-          lenght = 0
-          if len(str(id)) % 7 == 0:
-            lenght = len(str(id)) // 7
-          elif len(str(id)) % 5 == 0:
-            lenght = len(str(id)) // 5
-          elif len(str(id)) % 3 == 0:
-            lenght = len(str(id)) // 3
-          left_side_id = (str(id)[0:lenght])
-          midle_side_id = (str(id)[lenght:lenght+lenght])
-          right_side_id = (str(id)[-(lenght) :])
-          if left_side_id == midle_side_id and left_side_id == right_side_id and midle_side_id == right_side_id :
-            sum += id
+        str_id = str(id)
+        lenght_id = len(str_id)
+        # print("-----------------")
+        for index in range(1, (lenght_id//2)+1):
+          # print("Id              : " + str_id)
+          # print("index           : " + "-" + str(index))
+          is_sub_valid = True
+          if lenght_id % index == 0 :
+            test_caracters = str_id[-index:]
+            # print(" Test caractere : " + test_caracters)
+            for i_sub_id in range(0, lenght_id+1-index, index):
+              sub_id = str_id[i_sub_id:i_sub_id+index]
+              # print(" index sub id   : "+ str(i_sub_id))
+              # print(" sub id         : " + sub_id)
+              if sub_id == test_caracters :
+                is_sub_valid = True
+              else :
+                is_sub_valid = False
+                break
+          else :
+            is_sub_valid = False
+          if is_sub_valid == True :
+              # print("Valid Id        : " + str_id )
+              sum += id
+              break
 print(sum)
 
